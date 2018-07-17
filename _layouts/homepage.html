@@ -1,0 +1,31 @@
+---
+---
+{% include __html-start.html %}
+{{ content }}
+
+<div class="nav-wrapper disable-text-select">
+
+	{% for linkdata in site.data.themeconf.nav-links %}
+		{% if linkdata.title and linkdata.url %}
+			<div class="nav-item">
+				<a href="{{linkdata.url}}">
+					{{ linkdata.title }}
+				</a>
+			</div>
+		{% endif %}
+	{% endfor %}
+</div>
+
+{% include footer.html %}		
+
+<div class="chris-text disable-text-select">
+	<span class="title-effect-wrapper background-shadow shadow-name">
+		{{ site.data.themeconf.firstname }}<br/> 
+		{{ site.data.themeconf.lastname }}
+	</span>
+	<div class="sub-title background-shadow shadow-title">
+		{{ site.data.themeconf.tagline }}
+	</div>
+</div>
+		
+{% include __html-end.html %}

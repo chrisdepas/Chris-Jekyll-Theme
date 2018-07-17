@@ -1,0 +1,331 @@
+---
+---
+
+/* Default sizing to border-box */
+* { box-sizing: border-box; }
+			
+/* Util - Disable text selection */
+.disable-text-select {
+	-webkit-touch-callout: none;/* ios */
+	-webkit-user-select: none;/* Safari */ 
+	-khtml-user-select: none;/* Konqueror */
+	-moz-user-select: none;/* Firefox */
+	-ms-user-select: none;/* IE/Edge */
+	user-select: none; /* Chrome/Opera */	
+}
+
+/* Reduce list padding */
+ul { padding: 4px; margin: 0px; }
+li { margin-top: 2px; }
+
+/* Util - some black text-shadow */
+.black-shadow { text-shadow: 0px 0px 1px black, 0px 0px 1px black, 0px 0px 2px black; }
+
+/* Util - Chromatic aberration-styled text */
+.color-shadow {
+	text-shadow: 0 0 1px #ffffff99, 0 1.5px #ff090999, -1.5px 0 #00ff2099, 0 -1.5px #0d60c3, 1px 1px 1px #00000099, 0 0 1px #000, 0 0 2px #000, 0 0 3px #000, 0 0 4px #000;
+	color: white;
+}
+
+/*----------- Page header / Titlebar -----------------------------------------*/
+.header { /* Container */
+    background: #1f1f1f; box-shadow: 0px 0px 2px 0px;
+}
+.header-title { /* Title text  */
+	color: white;
+    font-family: monospace, sans-serif;
+	display: inline-block;
+	padding: 12px;
+}
+
+/*----------- CSS-only content toggle ----------------------------------------*/
+/* Uses a checkbox to store the hidden/shown state. 
+   Notes:
+	-> Replace {ID} with a unique ID for each toggleable
+	-> Replace {On}, {Off} with on/off text for toggleable control
+    -> Replace {Content} with content to hide/show
+	
+  Requires following HTML: 
+	  <input type="checkbox" id="toggle-{ID}" class="toggle-item">
+	  <label for="toggle-{ID}" class="content-control-toggle">
+			<span class="toggle-on">{On}</span>
+			<span class="toggle-off">{Off}</span>
+	  </label>
+	  <div class="content-item">
+		{Content}
+	  </div>		
+*/
+.content-control-toggle { /* clickable control label, contains on/off spans */
+    color: white;
+    font-weight: 900;
+    height: 0px;
+    transform: translate(0, -21px);
+    float: right;
+    position: relative;
+    padding-right: 24px;
+    line-height: 12px;
+    font-size: 32px !important;
+}
+/* Hide/Show on/off content text (+ / -) */
+input.toggle-item:checked + label .toggle-off { display: none; }
+input.toggle-item:not(:checked) + label .toggle-on { display: none; }
+/* Hide content if checked, hide checkbox */
+input.toggle-item:checked + label + .content-item { display: none; }
+input.toggle-item { display: none; }
+
+/*-----------  Page content styling   ----------------------------------------*/
+.content-item { 
+    width: 100%;
+    background: #1f1f1f;
+    border-left: 1px solid #101010;
+    border-right: 1px solid #101010;
+    border-bottom: 1px solid #101010;
+    color: white;
+    overflow: auto;
+	margin-bottom: 12px;
+}
+.content-wrapper { 
+    height: 100%;
+    margin-bottom: 12px;
+    padding: 24px;
+}
+.content-item-header {
+    background: #2f2f2f;
+    text-align: center;
+    color: white;
+    font-weight: 900;
+    text-shadow: 0px 0px 1px black, 0px 0px 1px black, 0px 0px 1px black;
+    font-size: 20px;
+    border: 1px solid #101010;
+}
+.content-iframe {
+    float: left;
+    padding: 12px;
+}
+img.content-image {
+    height: 100%;
+    max-height: 100%;
+    width: auto;
+}
+.content-text {
+    padding: 12px;
+	display: inline-block;
+}
+
+html {
+	perspective: 200px;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+}
+
+body:before {
+	content: " ";
+    position: absolute;
+	/* Pattern background */
+	background: repeating-linear-gradient(90deg, #242426c0 0px, #242426c0 199px, transparent 200px, transparent 203px, #242426c0 204px),
+				  repeating-linear-gradient(0deg, #242426c0 0px, #242426c0 199px, transparent 200px, transparent 203px, #242426c0 204px),        
+				  linear-gradient(#14dc28 20%, #8606ff 80%);
+	transform-origin: center;
+    transform: rotate3d(3, 0, 1.2, 10deg);
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+	/* Simplify transform to front face only (can fix blur due to transform)*/
+    backface-visibility: hidden;
+	
+	/* Background z-index */
+	z-index: -2;
+}
+
+body:after {
+	content: " ";
+    position: absolute;
+	width: 100%;
+	height: 100%;
+	box-shadow: 0px 0px 64px 0px inset #000000c7, 0px 0px 256px 0px inset #00000033;
+}
+
+/*-----------------  Navigation ----------------------------------------------*/
+/* -- Nav item base styling -- */
+.nav-item {
+    text-align: center;
+    padding: 12px;
+    min-width: 120px;
+}
+.nav-item a {
+	color: white;
+	text-decoration: none;
+	display: inline-block;
+	text-shadow: 0 0 1px #ffffff99, 0 1.5px #ff090999, -1.5px 0 #00ff2099, 0 -1.5px #0d60c3, 1px 1px 1px #00000099, 0 0 1px #000, 0 0 2px #000, 0 0 3px #000, 0 0 4px #000; /* Chromatic aberration effect */
+    font-family: monospace;
+	padding-right: 4px;
+    padding-left: 4px;
+}
+
+/* -- Homepage nav styling, large text under full name -- */
+.nav-wrapper { 
+	position: absolute;
+    z-index: 1;
+    top: 75%;
+    width: 80%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: table;
+    table-layout: fixed;
+}
+.nav-wrapper .nav-item a { 
+    font-size: 24px;
+    font-weight: 900;
+}
+.nav-wrapper .nav-item {
+    display: table-cell;
+    margin-left: auto;
+    margin-right: 0px;
+}
+/* -- Content pages nav styling, on header bar -- */
+.header-nav-wrapper { 
+	display: inline-block;
+	float: right;
+}
+.header-nav-wrapper .nav-item { 
+	display: inline-block; 
+	box-shadow: 0px 0px 2px -1px black; 
+}
+.header-nav-wrapper .nav-item a { 
+	font-size: 16px; 
+}
+
+/* -- Nav effects for both homepage and header -- */
+
+/* When selected [Nav directs to current page] */
+.nav-item.selected:hover {} /* Hover */
+.nav-item.selected:active { background: #2f2f2f; } /* Click */
+.nav-item.selected, .nav-item.selected { background: #2f2f2f; } /* Default */
+
+/* When not selected [Nav directs to new page] */
+.nav-item:hover { background: #2a2a2a; } /* Hover */
+.nav-item:active, .nav-item:active { background: #2f2f2f; } /* Click */
+
+.footer {
+	position: absolute;
+	bottom: 0%;
+	z-index: 1;
+	width: 100%;
+	font-size: small;
+	text-shadow: 0px 0px 1px black, 0px 0px 2px black;
+	color: rgba(100, 100, 100, 1.0);
+	font-family: monospace;
+}
+.footer div {
+	display: inline-block;
+	padding-bottom: 8px;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+.footer-left {
+	width: 25%; 
+	text-align: left; 
+	float: left;
+}
+.footer-centre {
+	text-align: center; 
+	width: 50%; 
+	float: left;
+}
+.footer-right {
+	float: right;
+	text-align: right;
+	width: 25%;
+}
+.top-bar div {
+	margin-bottom: 16px;
+}
+.chris-text {
+	left: 50%;
+	top: 50%;
+	position: fixed;
+	transform: translate(-50%, -50%);
+	display: inline-block;
+	text-align: center;
+}
+.sub-title {
+	padding-top: 32px;
+	color: white;
+	font-family: monospace;
+	font-size: 20px;
+}
+span.title-effect-wrapper {
+	font-size: 72px;
+	color: white;
+	font-weight: 700;
+	letter-spacing: 10px;
+	font-family: monospace, sans-serif;
+	text-shadow: -1px -1px 4px #00ff00, 2px 0px 4px #ff0909, -3px 2px 4px #0000ff, 0px 1px 15px #620dfffc, 0px -1px 15px #d3102dfc, -1px 0px 15px #08e60dfc;
+}
+.external-link-icon {
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.external-link-icon.github {
+	fill: #2196F3;
+}
+.external-link-icon.linkedin {
+	fill: #8606ff;
+}
+
+/*
+.background-shadow:before {
+    position: absolute;
+    transform: translate(45px, 25px) skew(-15deg);
+    text-shadow: 0px 0px 4px black;
+    color: transparent;
+	 Make sure shadows are 
+	font-weight: 900;
+ Shadow z-index 
+	z-index: -1;
+}
+/*
+.shadow-home:before { content: "Home"; }
+.shadow-about:before { content: "About"; }
+.shadow-projects:before { content: "Projects"; }
+.shadow-blog:before { content: "Blog"; }
+.shadow-title:before { content: "Developer"; }
+.shadow-name:before { content: "CHRIS DE PASQUALE"; }
+*/
+
+span.tooltip:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-top: 8px solid black;
+    left: 6px;
+    top: 24px;
+}
+span.tooltip {
+    position: absolute;
+    top: -38px;
+    padding: 5px;
+    z-index: 100;
+    background: #000;
+    color: #fff;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+	display: none;
+}
+
+*:hover > span.tooltip {
+    display: block;
+}

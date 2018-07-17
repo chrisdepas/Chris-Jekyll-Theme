@@ -1,0 +1,71 @@
+---
+---
+{% include __html-start.html %}
+
+{% include footer.html %}		
+{% include header.html %}
+
+<div class="content-wrapper">
+	{% assign project-index = 0 %}
+	
+	{% for projectdata in site.categories.Project %}
+		{% assign project-index = project-index | plus: 1 %}
+		{% include post.html title='{{projectdata.title}}' content='' minimizable='{{projectdata.minimizable}}' demo-content='{{project.demo-content}}' index='{{project-index}}' %}
+		
+		{% if projectdata.title and projectdata.content and projectdata.title != empty %}
+		
+			{% comment %} ----	Project Titlebar ---- {% endcomment %}
+			<div class="content-item-header text-shadow">{{ projectdata.title }}</div>
+			
+			{% comment %} ----	Project Hide/Show controls ---- {% endcomment %}
+			    {% if projectdata.minimizable != nil and projectdata.minimizable %}
+			        <input type="checkbox" id="toggle-{{project-index}}" class="toggle-item">
+			        <label for="toggle-{{project-index}}" class="disable-text-select content-control-toggle">
+			            <span class="toggle-on">+</span>
+			            <span class="toggle-off">-</span>
+			        </label>
+			{% endif %}
+			
+			{% comment %} ----	Project Content ---- {% endcomment %}
+			<div class="content-item">
+				
+				{% comment %} -- Insert image or iFrame (e.g. youtube) -- {% endcomment %}
+				{% if projectdata.demo-content != nil %}
+					{% assign iframe-data = projectdata.demo-content['iframe'] %}
+					{% assign image-data = projectdata.demo-content['image'] %}
+					
+					{% if iframe-data != nil and iframe-data.enabled != nil and iframe-data.enabled %}
+						<iframe class="content-iframe" frameborder="0" style="height: 100% !important;width:auto;overflow:hidden;display: inline-block;" src="{{iframe-data.link}}" height="100%" width="auto"></iframe>
+					{% endif %}
+					
+					{% if image-data != nil and image-data.enabled != nil and image-data.enabled %}
+						<img src="{{ image-data.link | absolute_url }}" class="content-image">
+					{% endif %}
+				{% endif %}
+				
+				{% comment %} -- Insert Project information -- {% endcomment %}
+				<div class="content-text">
+					{% comment %} Remove <p> tag, split text by lines {% endcomment %}
+					{% assign text-lines = projectdata.content | newline_to_br | strip_newlines %}
+					{% assign text-lines = text-lines | remove: '<p>' | remove: '</p>' | split: '<br />' %}
+					
+					{% if text-lines.size == 1 %}
+						{% comment %} Insert single line as raw text {% endcomment %}
+						{{ line }}
+						
+					{% elsif text-lines.size > 1 %}
+						{% comment %} Split lines, render as HTML list {% endcomment %}
+						<ul>
+							{% for line in text-lines %}
+								<li>{{ line }}</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+			</div>
+			
+		{% endif %}
+	{% endfor %}
+</div>
+		
+{% include __html-end.html %}

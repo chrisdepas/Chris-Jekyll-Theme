@@ -1,0 +1,15 @@
+<div class="header">
+	<div class="header-title color-shadow">{{ site.data.themeconf.firstname }} {{ site.data.themeconf.lastname }}</div>
+	
+	<div class="header-nav-wrapper disable-text-select">
+		{% for linkdata in site.data.themeconf.nav-links %}
+			{% if linkdata.title and linkdata.url %}
+				<div class="nav-item">
+					<a href="{{linkdata.url}}">
+						{{ linkdata.title }}
+					</a>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>

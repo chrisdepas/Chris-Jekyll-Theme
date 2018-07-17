@@ -1,0 +1,65 @@
+---
+
+---
+{% comment %}
+	Blog, or project post. Requires following variables:
+		title
+		content
+		minimizable
+		demo-content
+		index
+		
+	Usage:
+		include post.php title=project.title content=project.content
+			minimizable=project.minimizable demo-content=project.demo-content index=unique_id
+		
+{% endcomment %}
+
+{% if include.title != nil and content != nil and include.title != empty %}
+	{% comment %} ----	Titlebar ---- 	{% endcomment %}
+	<div class="content-item-header text-shadow">{{ include.title }}</div>
+	
+	{% comment %} ----	Project Hide/Show controls ---- {% endcomment %}
+	{% if include.minimizable != nil and include.minimizable and index != nil %}
+		<input type="checkbox" id="toggle-{{index}}" class="toggle-item">
+		<label for="toggle-{{index}}" class="disable-text-select content-control-toggle">
+			<span class="toggle-on">+</span>
+			<span class="toggle-off">-</span>
+		</label>
+	{% endif %}
+	
+	{% comment %} ----	Project Content ---- {% endcomment %}
+	<div class="content-item">
+	
+		{% comment %} -- Insert image or iFrame (e.g. youtube) -- {% endcomment %}
+		{% if include.demo-content != nil %}
+			{% if include.demo-content['iframe'] != nil and include.demo-content['iframe'].enabled %}
+				<iframe class="content-iframe" frameborder="0" src="{{iframe-data.link}}" height="100%" width="auto"
+				style="height: 100% !important;width:auto;overflow:hidden;display: inline-block;"></iframe>
+			{% endif %}
+			
+			{% if include.demo-content['image'] != nil and include.demo-content['image'].enabled  %}
+				<img src="{{ image-data.link | absolute_url }}" class="content-image">
+			{% endif %}
+		{% endif %}
+		
+		{% comment %} -- Insert Project information -- {% endcomment %}
+		<div class="content-text">
+			{% comment %} Remove <p> tag, split text by lines {% endcomment %}
+			{% assign text-lines = include.content | newline_to_br | strip_newlines %}
+			{% assign text-lines = text-lines | remove: '<p>' | remove: '</p>' | split: '<br />' %}
+					
+			{% if text-lines.size == 1 %}
+				{% comment %} One line only, output raw text {% endcomment %}
+				{{ line }}
+				
+			{% elsif text-lines.size > 1 %}
+				{% comment %} Multiple lines, render as list {% endcomment %}
+				<ul> 
+					{% for line in text-lines %} <li>{{ line }}</li> {% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+	</div>
+			
+{% endif %}
