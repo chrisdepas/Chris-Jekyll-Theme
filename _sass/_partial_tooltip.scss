@@ -1,0 +1,62 @@
+//******************************************************************************
+// CSS-only Tooltips
+// Christopher De Pasquale, 2018
+//	
+//	White text on a black bubble with a downwards arrow appears when hovering
+//  over a desired object.
+//
+// Usage:
+// Add a span with a .tooltip class inside the object requiring a tooltip, then
+// insert your tooltip text as the content of the span.
+//      
+//     <div class="object_with_tooltip"> 
+//         ... content ...
+//         <span class="tooltip">Tooltip text</span>
+//     </div>
+//
+// Note: Tooltip doesn't need to be the last element, it can be anywhere.
+//       However, it will only show when hovering on it's direct parent. 
+// 
+// TODO:
+//	- Different directions, colors, shapes
+//  - Can specify alignment of tooltip (middle, left, right)
+//  - Alignment of tooltip changes arrow position
+//  - Simplify with sass
+//
+//******************************************************************************
+
+// Vars
+$tooltip-background-color: #000;
+$tooltip-text-color: #fff;
+$tooltip-z-index: 100;
+$tooltip-border-radius: 3px;
+
+
+// Tooltip triangle facing downwards
+span.tooltip:before {
+    @include pseudo-elem();
+	top: 24px;
+	left: 6px;
+    width: 0;
+    height: 0;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-top: 8px solid black;
+}
+
+// Tooltip bubble containing text
+span.tooltip {
+    position: absolute;
+    top: -38px;
+	display: none;
+    padding: 5px;
+	color: $tooltip-text-color;
+	background: $tooltip-background-color;
+    z-index: $tooltip-z-index;
+	@include border-radius($tooltip-border-radius);
+}
+
+// Show tooltip when hovering over any object which contains a tooltip
+*:hover > span.tooltip {
+    display: block;
+}

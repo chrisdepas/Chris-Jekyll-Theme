@@ -7,8 +7,8 @@
 
 	{% for linkdata in site.data.themeconf.nav-links %}
 		{% if linkdata.title and linkdata.url %}
-			<div class="nav-item">
-				<a href="{{linkdata.url}}">
+			<div class="nav-item glitch-text-container">
+				<a href="{{linkdata.url}}" class="glitch-text" text-content="{{ linkdata.title }}">
 					{{ linkdata.title }}
 				</a>
 			</div>

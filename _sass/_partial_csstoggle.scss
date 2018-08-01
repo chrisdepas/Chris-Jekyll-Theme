@@ -1,0 +1,51 @@
+//******************************************************************************
+// CSS-only content toggle
+// Christopher De Pasquale 2018
+//
+// Hide/show toggle for a div, using a hidden checkbox to store the state. 
+// Needs a checkbox and label containing two divs to be inserted before the 
+//  element you wish to toggle, and unique IDs for each toggle.
+//
+// Usage:
+//  1. Insert following HTML before the element you wish to toggle: 
+//      <input type="checkbox" id="{ID}" class="toggle-item">
+//	  	<label for="{ID}" class="content-control-toggle">
+//		    <span class="toggle-on">{On}</span>
+//			<span class="toggle-off">{Off}</span>
+//	  	</label>
+//
+// 2. Replace {ID} with a unique ID for each toggleable (I suggest index with a 
+//   'toggle-' prefixed for clarity)  
+// 3. Replace {On}, {Off} with on/off text, symbols, html showing current state
+//    in a way that makes it obvious that it is clickable
+// 
+// TODO:
+// - Split functionality and style (and style the class in main scss)
+//******************************************************************************
+
+$toggle-vertical-translate: -21px;
+$toggle-text-color: #fff;
+$toggle-text-size: 32px;
+$toggle-font-weight: 900;
+$toggle-float: right; 
+    
+
+.content-control-toggle { 
+    color: $toggle-text-color;
+    font-weight: $toggle-font-weight;
+	float: $toggle-float;
+    transform: translate(0, $toggle-vertical-translate);
+	height: 0px;
+    position: relative;
+    padding-right: 24px;
+    line-height: 12px;
+    font-size: $toggle-text-size !important;
+}
+
+// Hide & Show on/off text, hide state checkbox 
+input.toggle-item:checked + label .toggle-off { display: none; }
+input.toggle-item:not(:checked) + label .toggle-on { display: none; }
+input.toggle-item { display: none; }
+
+// Hide content if checked
+input.toggle-item:checked + label + * { display: none; }

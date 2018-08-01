@@ -1,17 +1,30 @@
----
+{% comment %}		Personal site blog post, or project details list. 
 
----
-{% comment %}
-	Blog, or project post. Requires following variables:
-		title
-		content
-		minimizable
-		demo-content
-		index
+Self-contained box with header and CSS only dropdown toggle controls, allows
+for embedded YouTube links (or other urls), and images.
+	
+Requires following variables, which must be read from a jekyll Post
+title 		content 		minimizable 		demo-img 		index		demo-iframe
+
+Where:
+	- index is a unique ID
+	- Minimizable is a bool indicating if the box has hide/show controls
+	- demo-content is in the form:
+		{ "image" => { "enabled"=>true, link => "link/ref/img.png" }, 
+		 "iframe" => { "enabled"=>true, "link" => "https://www.youtube.com/embed/cQRyH_yWhiw" }} 
+	This can be specified in Yaml like so:
+		demo-content: 
+			image: 
+				enabled: true
+				link: "link/ref/img.png"
+			iframe: 
+				enabled: true
+				link: "https://www.youtube.com/embed/cQRyH_yWhiw"
 		
-	Usage:
-		include post.php title=project.title content=project.content
-			minimizable=project.minimizable demo-content=project.demo-content index=unique_id
+	- Title, content are what they say on the tin (post title and content)
+	
+	Usage [Add correct tags]:
+		" include post.php title=project.title content=project.content minimizable=project.minimizable demo-content=project.demo-content index=unique_id "
 		
 {% endcomment %}
 
@@ -20,9 +33,9 @@
 	<div class="content-item-header text-shadow">{{ include.title }}</div>
 	
 	{% comment %} ----	Project Hide/Show controls ---- {% endcomment %}
-	{% if include.minimizable != nil and include.minimizable and index != nil %}
-		<input type="checkbox" id="toggle-{{index}}" class="toggle-item">
-		<label for="toggle-{{index}}" class="disable-text-select content-control-toggle">
+	{% if include.minimizable and include.index != nil %}
+		<input type="checkbox" id="toggle-{{include.index}}" class="toggle-item">
+		<label for="toggle-{{include.index}}" class="disable-text-select content-control-toggle">
 			<span class="toggle-on">+</span>
 			<span class="toggle-off">-</span>
 		</label>

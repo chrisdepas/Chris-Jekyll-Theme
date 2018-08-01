@@ -1,0 +1,300 @@
+---
+---
+//******************************************************************************
+// Color scheme
+//******************************************************************************
+
+// ---- Highlights
+$color-blue: #2196F3;
+$color-purple: #8606ff;
+$color-green: #14dc28;
+
+// ---- Dark colors
+$color-darkgrey: rgb(36, 36, 37);
+
+//******************************************************************************
+// Required imports
+//******************************************************************************
+
+// Load Utility CSS
+@import '_partial_util';
+
+// Load 3D Grid background
+@import '_partial_background';
+
+// Load 3D Grid background
+@import '_partial_glitch-text';
+
+//******************************************************************************
+// HTML tag style changes
+//******************************************************************************
+
+// Set default sizing to border-box
+* { 
+	box-sizing: border-box; 
+}
+
+// Reduce list padding 
+ul {  
+	padding: 4px;  
+	margin: 0px; 
+}
+li {  margin-top: 2px; }
+
+// Expand html, body to fill entire screen
+html, body {
+	@include fullscreen();
+}
+
+// And put some shadow
+body {
+	box-shadow: 0px 0px 64px 0px inset #000000c7, 0px 0px 256px 0px inset #00000033;
+}
+
+//******************************************************************************
+//  Page header / Titlebar
+//******************************************************************************
+
+// Container
+.header {
+    background: #1f1f1f; 
+	box-shadow: 0px 0px 2px 0px;
+}
+
+// Title text
+.header-title {
+	color: white;
+    font-family: monospace, sans-serif;
+	display: inline-block;
+	padding: 12px;
+}
+
+//******************************************************************************
+//  Page content
+//******************************************************************************
+
+.content-item { 
+    width: 100%;
+    background: #1f1f1f;
+    border-left: 1px solid #101010;
+    border-right: 1px solid #101010;
+    border-bottom: 1px solid #101010;
+    color: white;
+    overflow: auto;
+	margin-bottom: 12px;
+}
+
+.content-wrapper { 
+    height: 100%;
+    margin-bottom: 12px;
+    padding: 24px;
+}
+
+.content-item-header {
+    background: #2f2f2f;
+    text-align: center;
+    color: white;
+    font-weight: 900;
+    text-shadow: 0px 0px 1px black, 0px 0px 1px black, 0px 0px 1px black;
+    font-size: 20px;
+    border: 1px solid #101010;
+}
+
+.content-iframe {
+    float: left;
+    padding: 12px;
+}
+
+img.content-image {
+    height: 100%;
+    max-height: 100%;
+    width: auto;
+}
+
+.content-text {
+    padding: 12px;
+	display: inline-block;
+}
+
+//******************************************************************************
+//  Navigation
+//******************************************************************************
+
+// Glitch text font 
+
+.glitch-text { font-family: "Lucida Console", monospace; }
+
+
+// ----------	Base styling
+
+.nav-item {
+    text-align: center;
+    padding: 12px;
+    min-width: 120px;
+}
+
+.nav-item a {
+	color: white;
+	text-decoration: none;
+	display: inline-block;
+	text-shadow: 0 0 1px #ffffff99, 0 1.5px #ff090999, -1.5px 0 #00ff2099, 0 -1.5px #0d60c3, 1px 1px 1px #00000099, 0 0 1px #000, 0 0 2px #000, 0 0 3px #000, 0 0 4px #000;
+    font-family: monospace;
+}
+
+// ----------	Homepage Navigation
+
+// Homepage nav styling, large text under full name 
+.nav-wrapper { 
+	position: absolute;
+    top: 75%;
+    width: 80%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: table;
+    table-layout: fixed;
+}
+
+.nav-wrapper .nav-item a { 
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.nav-wrapper .nav-item {
+    display: table-cell;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+// ----------	Homepage nav effects
+
+// -- Case: selected [Nav directs to current page] 
+.nav-wrapper .nav-item.selected:hover { // Hover
+}
+.nav-wrapper .nav-item.selected:active { // Click\
+}
+.nav-wrapper .nav-item.selected { // Default\
+}
+
+// -- Case: not selected
+.nav-wrapper .nav-item:hover { // Hover\
+}
+.nav-wrapper .nav-item:active { // Click
+}
+
+
+// ----------	Header-bar nav styling 
+
+.header-nav-wrapper { 
+	display: inline-block;
+	float: right;
+}
+
+.header-nav-wrapper .nav-item { 
+	display: inline-block; 
+	box-shadow: 0px 0px 2px -1px black; 
+}
+
+.header-nav-wrapper .nav-item a { 
+	font-size: 16px; 
+}
+
+// ----------	Header-bar effects
+
+// -- Case: selected [Nav directs to current page] 
+.header-nav-wrapper .nav-item.selected:hover { // Hover
+}
+.header-nav-wrapper .nav-item.selected:active { // Click
+	background: #2f2f2f; 
+}
+.header-nav-wrapper .nav-item.selected { // Default
+	background: #2f2f2f; 
+}
+
+// -- Case: not selected
+.header-nav-wrapper .nav-item:hover { // Hover
+	background: #2a2a2a; 
+}
+.header-nav-wrapper .nav-item:active { // Click
+	background: #2f2f2f; 
+}
+
+
+//******************************************************************************
+//  Footer - Three-segment transparent overlay on bottom of all pages
+//******************************************************************************
+
+.footer {
+	position: absolute;
+	bottom: 0%;
+	width: 100%;
+	font-size: small;
+	text-shadow: 0px 0px 1px black, 0px 0px 2px black;
+	color: rgba(100, 100, 100, 1.0);
+	font-family: monospace;
+}
+
+.footer div {
+	display: inline-block;
+	padding-bottom: 8px;
+	padding-left: 12px;
+	padding-right: 12px;
+}
+.footer-left {
+	width: 25%; 
+	text-align: left; 
+	float: left;
+}
+.footer-centre {
+	text-align: center; 
+	width: 50%; 
+	float: left;
+}
+.footer-right {
+	float: right;
+	text-align: right;
+	width: 25%;
+}
+
+.top-bar div {
+	margin-bottom: 16px;
+}
+.chris-text {
+	left: 50%;
+	top: 50%;
+	position: fixed;
+	transform: translate(-50%, -50%);
+	display: inline-block;
+	text-align: center;
+}
+.sub-title {
+	padding-top: 32px;
+	color: white;
+	font-family: monospace;
+	font-size: 20px;
+}
+span.title-effect-wrapper {
+	font-size: 72px;
+	color: white;
+	font-weight: 700;
+	letter-spacing: 10px;
+	font-family: monospace, sans-serif;
+	text-shadow: -1px -1px 4px #00ff00, 2px 0px 4px #ff0909, -3px 2px 4px #0000ff, 0px 1px 15px #620dfffc, 0px -1px 15px #d3102dfc, -1px 0px 15px #08e60dfc;
+}
+
+//******************************************************************************
+//  Icon links
+//******************************************************************************
+
+.external-link-icon {
+    display: inline-block;
+    margin-right: 12px;
+}
+.external-link-icon.github {
+	fill: #2196F3;
+}
+.external-link-icon.linkedin {
+	fill: #8606ff;
+}
+
+@import '_partial_tooltip';
+@import '_partial_csstoggle';

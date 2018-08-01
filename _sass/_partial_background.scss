@@ -1,0 +1,64 @@
+//******************************************************************************
+// CSS 3D grid plane background image
+// Christopher De Pasquale, 2018
+//	
+// 3D retro-futuristic style green-purple-grey grid background
+//
+// Usage:
+//   Add a div with class "main-background" into HTML body
+//   <body>		
+//	<div class="main-background"></div>		
+//	... content ...
+//   </body>
+//
+//******************************************************************************
+
+// -- Background Colors
+$bg-ws: rgba($color-darkgrey, 0.75); // Whitespace/background
+$bg-main: $color-green; // Displays in full from top right
+$bg-alt: $color-purple; // Displays partially from bottom left
+
+// -- Dimensions
+$bg-grid-width: 200px; // Width/height of grid whitespace
+$bg-grid-height: 200px; // Width/height of grid whitespace
+$bg-line-size: 6px;  // Size of each colored line
+$bg-line-blur-size: 2px; // Blur length per edge, 0 <= blursize <= linesize / 2
+$bg-transform: rotate3d(3, 0, 1.2, 10deg); // 3D rotation applied to background
+
+// -- Background Z position ensures we are always behind page content
+$bg-z-index: -2;
+
+// -- Helper - Creates one half of the grid background
+@function bg-grid-part($rotation, $size) {
+	$_blur1: $size + $bg-line-blur-size;
+	$_blur2: $size + $bg-line-size - $bg-line-blur-size;
+	$_blur3: $size + $bg-line-size;
+	
+	@return repeating-linear-gradient($rotation, $bg-ws 0px, $bg-ws $size, 
+		transparent $_blur1, transparent, transparent $_blur2, $bg-ws $_blur3);
+}
+
+// -- Now we can make our background image by compositing gradients
+$bg-background-gradient: bg-grid-part(90deg, $bg-grid-width), 
+						  bg-grid-part(0deg, $bg-grid-height),
+						  linear-gradient($bg-main 20%, $bg-alt 80%);
+						  
+// -- Add 3D perspective for it
+html { perspective: 200px; }
+
+// -- And create a class to display the transformed image without transforming page content
+.main-background { 
+    // Simplify transform to front face only (can fix blur due to transform)
+    @include backface-visibility(hidden);
+	@include transform(translate(-50%, -50%) $bg-transform);
+    background: $bg-background-gradient;
+    content: " ";
+    position: absolute;    
+    width: 200%;
+    height: 200%;
+	left: 50%;
+    top: 50%;
+	z-index: $bg-z-index;
+
+
+}
